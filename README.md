@@ -23,3 +23,6 @@ Here's the capabilities of our robot :
 ## Project Timeline:
 
 ## Project Reference 
+
+## Project Contact:
+If you have any question, feel free to contact us :) 
