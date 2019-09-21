@@ -17,7 +17,7 @@ Here's the capabilities of our robot :
 ## Project Most Recent Update :
 
 ### 09-21 project update 2 
-* meet up and tested V-REP
+* meet up and tested V-REP \n
 * figure out what is the available sensors we could use in order to achieve our objectives 
 
 ## Project Timeline:
