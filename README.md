@@ -15,6 +15,9 @@ Here's the capabilities of our robot :
 * react to voice signal 
 
 ## Project Most Recent Update :
+### 09-21 project update 2
+* react to voice signal is mostly infeasible since there's no sensor that detect voice signal in V-REP that would be used as feedback to our robot 
+
 
 ### 09-21 project update 2 
 * meet up and tested V-REP 
