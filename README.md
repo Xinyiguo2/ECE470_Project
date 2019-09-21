@@ -23,7 +23,7 @@ Here's the capabilities of our robot :
 ## Project Timeline:
 
 ## Project Reference:
-[V-REP]  http://www.coppeliarobotics.com/helpFiles/index.html \n
+[V-REP]  http://www.coppeliarobotics.com/helpFiles/index.html <br\>
 [V-REP]  https://www.youtube.com/watch?v=kOjQRYmeX_o&list=PL38P7Q24q4XA7c0uNj0kO4or-bKhFYdIg&index=3 
 
 ## Project Contact:
