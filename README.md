@@ -17,13 +17,13 @@ Here's the capabilities of our robot :
 ## Project Most Recent Update :
 
 ### 09-21 project update 2 
-* meet up and tested V-REP \n
+* meet up and tested V-REP 
 * figure out what is the available sensors we could use in order to achieve our objectives 
 
 ## Project Timeline:
 
 ## Project Reference:
-[V-REP]  http://www.coppeliarobotics.com/helpFiles/index.html
+[V-REP]  http://www.coppeliarobotics.com/helpFiles/index.html \n
 [V-REP]  https://www.youtube.com/watch?v=kOjQRYmeX_o&list=PL38P7Q24q4XA7c0uNj0kO4or-bKhFYdIg&index=3 
 
 ## Project Contact:
