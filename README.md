@@ -35,5 +35,14 @@ Here's the desired capabilities of our robot :
 [V-REP]  http://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm#simxGetVisionSensorImage
 Kinematics http://www.cs.cmu.edu/~rasc/Download/AMRobots3.pdf
 
+## Project Code:
+* Simulation environment in ECE_470 Project
+* Code in ECE_470 Project
+Required API files
+1. vrep.py
+2. vrepConst.py
+3. remoteApi.dll
+4. simpleTest.py
+
 ## Project Contact:
 If you have any question, feel free to contact us :) 

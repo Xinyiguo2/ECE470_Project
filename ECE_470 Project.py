@@ -35,6 +35,8 @@ sensor_h=[]
 sensor_val=np.array([]) 
 
 
+
+
 sensor_loc=np.array([-PI/2, -50/180.0*PI,-30/180.0*PI,-10/180.0*PI,10/180.0*PI,30/180.0*PI,50/180.0*PI,PI/2,PI/2,130/180.0*PI,150/180.0*PI,170/180.0*PI,-170/180.0*PI,-150/180.0*PI,-130/180.0*PI,-PI/2]) 
 
 #assign handle for each proximity sensor
@@ -46,12 +48,23 @@ for x in range(1,16+1):
         
 t = time.time()
 
+# Target Position
+Xtarget = input("Enter Target x Position :")
+Xtarget = float(Xtarget)
+Ytarget = input("Enter Target y Position :")
+Ytarget = float(Ytarget)
+Target = np.array([Xtarget,Ytarget])
+
+V_left = 1
+V_right = 1
+
+
 while (time.time()-t)<60:
     sensor_val=np.array([])
     results,Heading=simxGetObjectOrientation(clientID,"Pioneer_p3dx",-1,simx_opmode_buffer)
     results,Position=simxGetObjectPosition(clientID,"Pioneer_p3dx",-1,simx_opmode_buffer)    
     for x in range(1,16+1):
-        errorCode,detectionState,detectedPoint,detectedObjectHandle,detectedSurfaceNormalVector=vrep.simxReadProximitySensor(clientID,sensor_h[x-1],vrep.simx_opmode_buffer)                
+        result,detectionState,detectedPoint,detectedObjectHandle,detectedSurfaceNormalVector=vrep.simxReadProximitySensor(clientID,sensor_h[x-1],vrep.simx_opmode_buffer)                
         sensor_val=np.append(sensor_val,np.linalg.norm(detectedPoint)) 
     
     sensor_sq=sensor_val[0:8]*sensor_val[0:8] 
@@ -61,18 +74,23 @@ while (time.time()-t)<60:
     
 #    obstacle distance vector
     if sensor_sq[min_ind]<0.15:
-        steer=-1/sensor_loc[min_ind]
+        steer=-1/sensor_loc[min_ind]*sensor_sq[min_ind]
     else:
         steer=0
             
 #    Robot Kinematics
-    Wheelbase = 381  #mm
-    
-    v=1.5	
+    v = (V_left+V_right)/2
+    B = .381  #m
+    w = (V_right-V_left)/B
     
     Kp=0.8	
+    
+        
+    
     V_left=v+Kp*steer
     V_right=v-Kp*steer
+    
+    
     
     print ("V_l =",V_left)
     print ("V_r =",V_right)
