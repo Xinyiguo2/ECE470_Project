@@ -1,4 +1,4 @@
-import vrep                 
+import vrep     
 import sys
 import time                
 import numpy as np         
@@ -23,12 +23,13 @@ else:
 
 #def get_handles
 # Robot Handles
-        results,Position=simxGetObjectOrientation(clientID,"Pioneer_p3dx",-1,simx_opmode_streaming)
-        
+results,Pioneer = vrep.simxGetObjectHandle(clientID,"Pioneer_p3dx",vrep.simx_opmode_blocking)
+ 
+     
 # Motor Handles
 
-result,left_motor_handle=vrep.simxGetObjectHandle(clientID,'Pioneer_p3dx_leftMotor',vrep.simx_opmode_oneshot_wait)
-result,right_motor_handle=vrep.simxGetObjectHandle(clientID,'Pioneer_p3dx_rightMotor',vrep.simx_opmode_oneshot_wait)
+result,left_motor_handle=vrep.simxGetObjectHandle(clientID,'Pioneer_p3dx_leftMotor',vrep.simx_opmode_blocking)
+result,right_motor_handle=vrep.simxGetObjectHandle(clientID,'Pioneer_p3dx_rightMotor',vrep.simx_opmode_blocking)
 
 
 sensor_h=[] 
@@ -55,14 +56,22 @@ Ytarget = input("Enter Target y Position :")
 Ytarget = float(Ytarget)
 Target = np.array([Xtarget,Ytarget])
 
+
+
+##
 V_left = 1
 V_right = 1
 
 
+
 while (time.time()-t)<60:
     sensor_val=np.array([])
-    results,Heading=simxGetObjectOrientation(clientID,"Pioneer_p3dx",-1,simx_opmode_buffer)
-    results,Position=simxGetObjectPosition(clientID,"Pioneer_p3dx",-1,simx_opmode_buffer)    
+    ## Get robot heading and position, Heading is R_z, or Heading[2]
+    results,Heading=vrep.simxGetObjectOrientation(clientID,Pioneer,-1,simx_opmode_streaming)
+    results,Position=simxGetObjectPosition(clientID,Pioneer,-1,simx_opmode_streaming)  
+    results,Heading=vrep.simxGetObjectOrientation(clientID,Pioneer,-1,simx_opmode_buffer)
+    results,Position=simxGetObjectPosition(clientID,Pioneer,-1,simx_opmode_buffer)    
+    ## Proximity Sensor Readings
     for x in range(1,16+1):
         result,detectionState,detectedPoint,detectedObjectHandle,detectedSurfaceNormalVector=vrep.simxReadProximitySensor(clientID,sensor_h[x-1],vrep.simx_opmode_buffer)                
         sensor_val=np.append(sensor_val,np.linalg.norm(detectedPoint)) 
@@ -78,25 +87,41 @@ while (time.time()-t)<60:
     else:
         steer=0
             
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 #    Robot Kinematics
-    v = (V_left+V_right)/2
-    B = .381  #m
-    w = (V_right-V_left)/B
-    
-    Kp=0.8	
+    def Robot_Motion_Model(V,W):
+        B = .381  #Wheel Base
+        R = 0.195 #Wheel Radius
+        V_left = V + R*W
+        V_right = V - R*W
+        W_L = V_left/R
+        W_R = V_right/R
+        return W_L, W_R
+   
     
         
     
-    V_left=v+Kp*steer
-    V_right=v-Kp*steer
     
     
-    
-    print ("V_l =",V_left)
-    print ("V_r =",V_right)
 
-    result=vrep.simxSetJointTargetVelocity(clientID,left_motor_handle,V_left, vrep.simx_opmode_streaming)
-    result=vrep.simxSetJointTargetVelocity(clientID,right_motor_handle,V_right, vrep.simx_opmode_streaming)
+    result=vrep.simxSetJointTargetVeloc ity(clientID,left_motor_handle,W_left, vrep.simx_opmode_streaming)
+    result=vrep.simxSetJointTargetVelocity(clientID,right_motor_handle, W_right, vrep.simx_opmode_streaming)
 
     time.sleep(0.2) 
 
