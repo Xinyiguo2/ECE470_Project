@@ -120,7 +120,7 @@ while (time.time()-t)<60:
     
     
 
-    result=vrep.simxSetJointTargetVeloc ity(clientID,left_motor_handle,W_left, vrep.simx_opmode_streaming)
+    result=vrep.simxSetJointTargetVelocity(clientID,left_motor_handle,W_left, vrep.simx_opmode_streaming)
     result=vrep.simxSetJointTargetVelocity(clientID,right_motor_handle, W_right, vrep.simx_opmode_streaming)
 
     time.sleep(0.2) 
